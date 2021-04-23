@@ -97,24 +97,28 @@ elif rgb_dominant == 3:
 sense = SenseHat()
 sense.clear()
 
-output_text = ""
 
-weather  = get_weather()
+def output_weather(weather):
+  
+  output_text = ""
 
-output_text += "--- {} ~ Current as of {} @ {} ---\n".format(socket.gethostname(), weather["today"].strftime("%m/%d/%Y"), weather["time_now"].strftime("%H:%M:%S"))
-output_text += "Temperature: {:.2f}*F\n".format(weather["temp"])
-output_text += "Humidity: {:.2f}%\n".format(weather["humidity"])
-output_text += "Dew Point: {:.2f}*F\n".format(weather["dew_point"])
-output_text += "Pressure: {:.2f} inHg\n".format(weather["pressure"])
-output_text += "\nOrientation: Pitch: {:.0f}* ~ Roll: {:.0f}* ~ Yaw: {:.0f}*\n".format(weather["orientation"]["pitch"], weather["orientation"]["roll"], weather["orientation"]["yaw"])
+  weather  = get_weather() 
 
-print(output_text)
+  output_text += "--- {} ~ Current as of {} @ {} ---\n".format(socket.gethostname(), weather["today"].strftime("%m/%d/%Y"), weather["time_now"].strftime("%H:%M:%S"))
+  output_text += "Temperature: {:.2f}*F\n".format(weather["temp"])
+  output_text += "Humidity: {:.2f}%\n".format(weather["humidity"])
+  output_text += "Dew Point: {:.2f}*F\n".format(weather["dew_point"])
+  output_text += "Pressure: {:.2f} inHg\n".format(weather["pressure"])
+  output_text += "\nOrientation: Pitch: {:.0f}* ~ Roll: {:.0f}* ~ Yaw: {:.0f}*\n".format(weather["orientation"]["pitch"], weather["orientation"]["roll"], weather["orientation"]["yaw"])
+
+  return output_text
+
 
 while True:
   weather  = get_weather()
   show_number(int(weather["temp"]), r, g, b)
   with open ("temp_output", "w") as rw:
-    to_write = "{}\n{}\n{}\n{}\n{}\n{}\n{}".format(weather["temp"],weather["humidity"],weather["dew_point"],weather["pressure"],weather["today"],weather["time_now"],weather["orientation"])
+    to_write = output_weather(weather)
     rw.write(to_write)
     rw.close()
   time.sleep(3)
