@@ -1,0 +1,7 @@
+--- Hadi-BlueberryPi ~ Current as of 04/23/2021 @ 17:43:59 ---
+Temperature: 82.47*F
+Humidity: 23.89%
+Dew Point: 19.70*F
+Pressure: 29.01 inHg
+
+Orientation: Pitch: 2* ~ Roll: 4* ~ Yaw: 154*
